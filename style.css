@@ -139,6 +139,7 @@ h1 {
   text-align: end;
   line-height: 82%;
   padding-right: 1vw;
+  user-select: none;
 }
 
 .magnet-button {
