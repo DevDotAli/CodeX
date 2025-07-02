@@ -1,4 +1,4 @@
-const cursor = document.getElementById("cursor");
+const cursor = document.getElementById("#cursor");
 
 let mouseX = 0;
 let mouseY = 0;
