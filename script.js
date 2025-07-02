@@ -1,24 +1,42 @@
-/* const cursor = document.getElementById("cursor");
+const cursor = document.getElementById("cursor");
 
 let mouseX = 0;
 let mouseY = 0;
 let currentX = 0;
 let currentY = 0;
-const speed = 0.2;
 
+let lastX = 0;
+let lastY = 0;
+let speed = 0;
+let duration = 0.1;
 document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  mouseX = e.clientX - 20;
+  mouseY = e.clientY - 20;
 });
 
 function animate() {
-  currentX += (mouseX - currentX) * speed;
-  currentY += (mouseY - currentY) * speed;
-  cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
+  // Smooth interpolation
+  currentX += (mouseX - currentX) * duration;
+  currentY += (mouseY - currentY) * duration;
+
+  // Calculate speed (Euclidean distance between frames)
+  const dx = currentX - lastX;
+  const dy = currentY - lastY;
+  speed = Math.sqrt(dx * dx + dy * dy);
+
+  // Optional: Scale cursor based on speed
+  const scale = 1 + Math.min(speed / 20, 1); // Max scale of 1.5
+  cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${scale})`;
+
+  // Save last position
+  lastX = currentX;
+  lastY = currentY;
+
   requestAnimationFrame(animate);
 }
 animate();
 
+/*
 //  Shrink on leave
 let cursorWidth = cursor.getBoundingClientRect();
 document.addEventListener("mouseleave", () => {
@@ -50,12 +68,12 @@ document.addEventListener("mouseenter", () => {
   }, 10);
 });
 
-
+*/
 const blendTargets = document.querySelectorAll(".blend");
 
 blendTargets.forEach((el) => {
   el.addEventListener("mouseenter", () => {
-    cursor.style.mixBlendMode = "difference";
+    cursor.style.mixBlendMode = "multiply";
   });
   el.addEventListener("mouseleave", () => {
     cursor.style.mixBlendMode = "normal";
@@ -73,7 +91,7 @@ cursorDisappear.forEach((el) => {
     cursor.style.opacity = 1;
   });
 });
-*/
+
 const wrapper = document.querySelector(".magnet-wrapper");
 const button = wrapper.querySelector(".magnet-button");
 
@@ -95,10 +113,10 @@ wrapper.addEventListener("mousemove", (e) => {
 
 wrapper.addEventListener("mouseleave", () => {
   const decay = 0.5;
-  const bounces = 5;
+  const bounces = 4;
   const giggleFrames = [];
 
-  let factor = 0.4;
+  let factor = 0.6;
   let direction = 2.5;
 
   for (let i = 0; i < bounces; i++) {

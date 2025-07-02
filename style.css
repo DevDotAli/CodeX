@@ -17,15 +17,19 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 45px;
-  z-index: 98;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+  background-image: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.678),
+    rgba(255, 255, 255, 0.445)
+  );
   pointer-events: none;
-  background-color: #fe350b;
-  translate: -50% -50%;
-  transition: opacity 0.3s ease;
+  z-index: 9999;
+  transition: opacity 0.2s ease;
 }
+
 :root {
   --primary: #efeae3;
   --border: #0c0c0b;
@@ -77,7 +81,7 @@ body {
   font-weight: 600;
 }
 .logo h1 {
-  transition: all 0.05s ease;
+  transition: all 0.12s ease;
 }
 
 .navbar {
@@ -243,8 +247,8 @@ body {
   margin-right: 2vw;
 }
 .conttext span {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   background-color: var(--shape);
 }
